@@ -1,9 +1,9 @@
 package api;
 
 import io.qameta.allure.Step;
-import io.qameta.allure.junit4.DisplayName;
-import org.junit.Assert;
-import org.junit.Test;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
 
 import static io.restassured.RestAssured.given;
 
@@ -18,8 +18,9 @@ public class myTryTest {
 
     }
 
-    @Step  ("This is my first Step")
-    public static void  checkNameAndId (){
+    @Step("This is my first Step")
+
+    public  void  checkNameAndId (){
         Specifications.installSpecification(Specifications.requestSpec(URL), Specifications.responseSpec200());
 
        UserDataWithData userWithData = given()
@@ -29,7 +30,8 @@ public class myTryTest {
                .extract()
                .as(UserDataWithData.class);
        UserData userData = userWithData.getData();
-        Assert.assertEquals(first_name, userData.getFirst_name());
+       Assertions.assertThat(first_name).isEqualTo(userData.getFirst_name());
+
 
     }
 
